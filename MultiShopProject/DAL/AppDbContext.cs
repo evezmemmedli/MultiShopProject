@@ -17,6 +17,8 @@ namespace MultiShopProject.DAL
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductInformation> ProductInformations { get; set; }
 
+        public DbSet<Setting> Settings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var item in modelBuilder.Model.GetEntityTypes()

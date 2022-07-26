@@ -43,7 +43,7 @@
                             @slider.Title;
                         </td>
                           <td>
-                           @slider.Description.Substring(1,15)...
+                           @(slider.Description.Length > 20 ? @slider.Description.Substring(1,15) : @slider.Description)
                         </td>
                         <td class="d-flex" >
                             <div>

@@ -13,7 +13,7 @@
             <thead>
                 <tr>
                     <th>
-                        Id
+                        Image
                     </th>
                     <th>
                         Name
@@ -29,8 +29,9 @@
                 {
                     <tr >
                         <td>
-                            @category.Id
+                            <img style="width:80px !important; height:80px !important; object-fit:contain"; src="~/assets/img/@category.Image" alt=" " >
                         </td>
+                        
                         <td>
                             @category.Name
                         </td>

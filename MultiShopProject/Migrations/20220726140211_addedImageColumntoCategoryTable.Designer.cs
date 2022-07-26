@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MultiShopProject.DAL;
 
 namespace MultiShopProject.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220726140211_addedImageColumntoCategoryTable")]
+    partial class addedImageColumntoCategoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +60,7 @@ namespace MultiShopProject.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(6,2)");
 
-                    b.Property<int>("ProductInformationId")
+                    b.Property<int?>("ProductInformationId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -103,27 +105,18 @@ namespace MultiShopProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Information")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Review")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("ProductInformations");
-                });
-
-            modelBuilder.Entity("MultiShopProject.Models.Setting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("MultiShopProject.Models.Slider", b =>
@@ -166,9 +159,7 @@ namespace MultiShopProject.Migrations
 
                     b.HasOne("MultiShopProject.Models.ProductInformation", "ProductInformation")
                         .WithMany("Products")
-                        .HasForeignKey("ProductInformationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductInformationId");
                 });
 
             modelBuilder.Entity("MultiShopProject.Models.ProductImage", b =>

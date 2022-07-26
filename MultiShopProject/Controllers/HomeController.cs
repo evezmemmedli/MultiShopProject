@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MultiShopProject.DAL;
 using MultiShopProject.Models;
+using MultiShopProject.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,8 +17,13 @@ namespace MultiShopProject.Controllers
         }
         public IActionResult Index()
         {
-            List<Slider> slider = _context.Sliders.ToList();
-            return View(slider);
+
+            HomeVM model = new HomeVM()
+            {
+                Sliders = _context.Sliders.ToList(),
+                Categories = _context.Categories.ToList(),
+            };
+            return View(model);
         }
         public IActionResult ContactUs()
         {
