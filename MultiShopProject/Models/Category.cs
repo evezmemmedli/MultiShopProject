@@ -10,6 +10,6 @@ namespace MultiShopProject.Models
 
         public string Name { get; set; }    
 
-        public List<ProductCategory> ProductCategories { get; set; }
+        public List<Product> Product { get; set; }
     }
 }

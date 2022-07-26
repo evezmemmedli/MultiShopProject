@@ -15,7 +15,9 @@ namespace MultiShopProject.Models
 
         public ProductInformation ProductInformation { get; set; }
         public List<ProductImage> ProductImages { get; set; }
-        public List<ProductCategory> ProductCategories { get; set; }    
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
 
     }
 }

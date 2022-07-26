@@ -1,5 +1,7 @@
-﻿using MultiShopProject.Models.Base;
+﻿using Microsoft.AspNetCore.Http;
+using MultiShopProject.Models.Base;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MultiShopProject.Models
 {
@@ -14,5 +16,8 @@ namespace MultiShopProject.Models
         public string ButtonUrl { get; set; }
         [Required]
         public byte Order { get; set; }
+
+        [NotMapped]
+        public IFormFile Photo { get; set; }
     }
 }

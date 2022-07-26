@@ -43,6 +43,9 @@ namespace MultiShopProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Desc")
                         .HasColumnType("nvarchar(max)");
 
@@ -60,31 +63,11 @@ namespace MultiShopProject.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("ProductInformationId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("MultiShopProject.Models.ProductCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("MultiShopProject.Models.ProductImage", b =>
@@ -163,24 +146,15 @@ namespace MultiShopProject.Migrations
 
             modelBuilder.Entity("MultiShopProject.Models.Product", b =>
                 {
-                    b.HasOne("MultiShopProject.Models.ProductInformation", "ProductInformation")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductInformationId");
-                });
-
-            modelBuilder.Entity("MultiShopProject.Models.ProductCategory", b =>
-                {
                     b.HasOne("MultiShopProject.Models.Category", "Category")
-                        .WithMany("ProductCategories")
+                        .WithMany("Product")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MultiShopProject.Models.Product", "Product")
-                        .WithMany("ProductCategories")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("MultiShopProject.Models.ProductInformation", "ProductInformation")
+                        .WithMany("Products")
+                        .HasForeignKey("ProductInformationId");
                 });
 
             modelBuilder.Entity("MultiShopProject.Models.ProductImage", b =>
