@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿    using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MultiShopProject.DAL;
@@ -32,9 +32,9 @@ namespace MultiShopProject.Areas.MultiAdmin.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-
         public async Task<IActionResult> Create(Slider slider)
         {
             if (!ModelState.IsValid) return View();
