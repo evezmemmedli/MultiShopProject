@@ -12,7 +12,7 @@
     </div>
     @if(TempData["FileName"] != null)
     {
-        <div class="alert alert-danger">@TempData["FileName"] files could not upload</div>
+        <div class="alert alert-danger">@TempData["FileName"]</div>
     }
     <div class="table-responsive pt-3">
         <table class="table table-dark">
@@ -60,12 +60,12 @@
 
                         
 
-                        <td  class="d-flex">
+                        <td  class="d-flex" style="height:200px; align-items:center">
                                 <div>
                                     <a asp-area="MultiAdmin" asp-controller="product" asp-action="Update" asp-route-id="@product.Id" class="btn btn-warning"><i class="mdi mdi-border-color"></i></a>
                                 </div>
                                 <div>
-                                    <a class="btn btn-danger" asp-area="MultiaAdmin" asp-controller="product" asp-action="Delete" asp-route-id="@product.Id"><i class="mdi mdi-delete"></i></a>
+                                    <a class="btn btn-danger" asp-controller="product" asp-action="Delete" asp-route-id="@product.Id"><i class="mdi mdi-delete"></i></a>
                                 </div>
                         </td>
                     </tr>

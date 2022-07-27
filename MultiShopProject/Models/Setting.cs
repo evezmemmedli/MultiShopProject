@@ -5,6 +5,7 @@ namespace MultiShopProject.Models
 {
     public class Setting:BaseEntity
     {
-        List<Category>Categories { get; set; }
+        public string Key { get; set; }
+        public string Value { get; set; }
     }
 }
