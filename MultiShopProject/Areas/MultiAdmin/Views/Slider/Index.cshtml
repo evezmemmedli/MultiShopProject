@@ -45,7 +45,7 @@
                           <td>
                            @(slider.Description.Length > 20 ? @slider.Description.Substring(1,15) : @slider.Description)
                         </td>
-                        <td class="d-flex" >
+                        <td class="d-flex" style="height:200px; align-items:center" >
                             <div>
                                 <a class="btn btn-warning" asp-area="MultiAdmin" asp-controller="slider" asp-action="Update" asp-route-id="@slider.Id"> <i class="mdi mdi-border-color"></i> </a>
                             </div>
