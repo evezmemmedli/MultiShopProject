@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MultiShopProject.Models;
 using System.Linq;
 
 namespace MultiShopProject.DAL
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -19,6 +21,8 @@ namespace MultiShopProject.DAL
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Advertisement> Advertisements { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var item in modelBuilder.Model.GetEntityTypes()
@@ -29,7 +33,10 @@ namespace MultiShopProject.DAL
                 item.SetColumnType("decimal(6,2)");
                 //item.SetDefaultValue(20.5m);
             }
+            base.OnModelCreating(modelBuilder);
         }
+
+       
     }
 }
 

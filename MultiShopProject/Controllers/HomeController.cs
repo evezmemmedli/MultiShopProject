@@ -21,6 +21,7 @@ namespace MultiShopProject.Controllers
 
             HomeVM model = new HomeVM()
             {
+                Advertisements=_context.Advertisements.ToList(),
                 Sliders = _context.Sliders.ToList(),
                 Categories = _context.Categories.ToList(),
                 Products = _context.Products.

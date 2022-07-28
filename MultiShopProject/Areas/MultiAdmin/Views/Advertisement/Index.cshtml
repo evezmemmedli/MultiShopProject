@@ -1,0 +1,73 @@
+﻿
+@model List<Advertisement>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="main-panel">
+    <div>
+        <a class="btn btn-success" asp-area="MultiAdmin" asp-controller="advertisement" asp-action="Create" >Create new advertisement</a>
+    </div>
+    <div class="table-responsive pt-3">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Article
+                    </th>
+                    <th>
+                        Setting
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Advertisement adv in Model)
+                {
+                    <tr >
+                        <td>
+                            <img style="width:80px !important; height:80px !important; object-fit:contain"; src="~/assets/img/@adv.Image" alt=" " >
+                        </td>
+                        <td>
+                            @adv.Title;
+                        </td>
+                          <td>
+                           @(adv.Title.Length > 20 ? @adv.Title.Substring(1,15) : @adv.Title)
+                        </td>
+                        <td>
+                            @adv.Discount;
+                        </td>
+                        <td class="d-flex" style="height:200px; align-items:center" >
+                            <div>
+                                <a class="btn btn-warning" asp-area="MultiAdmin" asp-controller="advertisement" asp-action="Update" asp-route-id="@adv.Id"> <i class="mdi mdi-border-color"></i> </a>
+                            </div>
+                             <div>
+                                <a class="btn btn-danger" asp-area="MultiAdmin" asp-controller="advertisement" asp-action="Delete" asp-route-id="@adv.Id"> <i class="mdi mdi-delete"></i> </a>
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+

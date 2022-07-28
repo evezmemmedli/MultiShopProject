@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MultiShopProject.DAL;
+using MultiShopProject.Models;
 using MultiShopProject.Service;
 using System;
 using System.Collections.Generic;
@@ -32,6 +34,22 @@ namespace MultiShopProject
             {
                 opt.UseSqlServer(_config.GetConnectionString("Default"));
             });
+
+            services.AddIdentity<AppUser, IdentityRole>(opt=>{
+                opt.User.RequireUniqueEmail = false;
+                opt.Password.RequiredUniqueChars = 3;
+                opt.Password.RequiredLength = 8;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireDigit = true;
+                opt.Password.RequireUppercase = false;
+
+                opt.Lockout.MaxFailedAccessAttempts = 3;
+                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                opt.Lockout.AllowedForNewUsers = true;
+
+                opt.User.RequireUniqueEmail = false;
+                opt.User.AllowedUserNameCharacters = "qwertyuiopasdfghjkzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_";
+            }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>(); 
             services.AddScoped<LayoutService>();
 
         }
@@ -46,6 +64,8 @@ namespace MultiShopProject
 
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

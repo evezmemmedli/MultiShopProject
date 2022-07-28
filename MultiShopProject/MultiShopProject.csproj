@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.27">
@@ -96,6 +97,59 @@
     <None Include="wwwroot\admin\vendors\datatables.net\jquery.dataTables.js" />
     <None Include="wwwroot\admin\vendors\mdi\css\materialdesignicons.min.css.map" />
     <None Include="wwwroot\admin\vendors\mdi\fonts\materialdesignicons-webfont.woff2" />
+    <None Include="wwwroot\assetsl\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\assetsl\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\assetsl\fonts\Pe-icon-7-stroke.svg" />
+    <None Include="wwwroot\assetsl\images\offcanvas\close-white.svg" />
+    <None Include="wwwroot\assetsl\images\website-images\1-270x300.webp" />
+    <None Include="wwwroot\assetsl\js\main.js" />
+    <None Include="wwwroot\assetsl\js\plugins.min.js" />
+    <None Include="wwwroot\assetsl\js\plugins\ion.rangeSlider.min.js" />
+    <None Include="wwwroot\assetsl\js\plugins\jquery.counterup.js" />
+    <None Include="wwwroot\assetsl\js\plugins\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\assetsl\js\plugins\jquery.nice-select.js" />
+    <None Include="wwwroot\assetsl\js\plugins\mailchimp-ajax.js" />
+    <None Include="wwwroot\assetsl\js\plugins\parallax.min.js" />
+    <None Include="wwwroot\assetsl\js\plugins\swiper-bundle.min.js" />
+    <None Include="wwwroot\assetsl\js\plugins\tippy.min.js" />
+    <None Include="wwwroot\assetsl\js\plugins\wow.min.js" />
+    <None Include="wwwroot\assetsl\js\vendor\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\assetsl\js\vendor\jquery-3.6.0.min.js" />
+    <None Include="wwwroot\assetsl\js\vendor\jquery-migrate-3.3.2.min.js" />
+    <None Include="wwwroot\assetsl\js\vendor\jquery.waypoints.js" />
+    <None Include="wwwroot\assetsl\js\vendor\modernizr-3.11.2.min.js" />
+    <None Include="wwwroot\assetsl\php\pronia\pronia.php" />
+    <None Include="wwwroot\assetsl\scss\style.scss" />
+    <None Include="wwwroot\assetsl\scss\_404.scss" />
+    <None Include="wwwroot\assetsl\scss\_about.scss" />
+    <None Include="wwwroot\assetsl\scss\_animation.scss" />
+    <None Include="wwwroot\assetsl\scss\_banner.scss" />
+    <None Include="wwwroot\assetsl\scss\_blog.scss" />
+    <None Include="wwwroot\assetsl\scss\_brand.scss" />
+    <None Include="wwwroot\assetsl\scss\_breadcrumb.scss" />
+    <None Include="wwwroot\assetsl\scss\_cart.scss" />
+    <None Include="wwwroot\assetsl\scss\_checkout.scss" />
+    <None Include="wwwroot\assetsl\scss\_common.scss" />
+    <None Include="wwwroot\assetsl\scss\_compare.scss" />
+    <None Include="wwwroot\assetsl\scss\_contact.scss" />
+    <None Include="wwwroot\assetsl\scss\_faq.scss" />
+    <None Include="wwwroot\assetsl\scss\_footer.scss" />
+    <None Include="wwwroot\assetsl\scss\_header.scss" />
+    <None Include="wwwroot\assetsl\scss\_login-register.scss" />
+    <None Include="wwwroot\assetsl\scss\_mixins.scss" />
+    <None Include="wwwroot\assetsl\scss\_modal.scss" />
+    <None Include="wwwroot\assetsl\scss\_my-account.scss" />
+    <None Include="wwwroot\assetsl\scss\_navigation.scss" />
+    <None Include="wwwroot\assetsl\scss\_newsletter.scss" />
+    <None Include="wwwroot\assetsl\scss\_offcanvas.scss" />
+    <None Include="wwwroot\assetsl\scss\_product.scss" />
+    <None Include="wwwroot\assetsl\scss\_shipping.scss" />
+    <None Include="wwwroot\assetsl\scss\_shop.scss" />
+    <None Include="wwwroot\assetsl\scss\_sidebar.scss" />
+    <None Include="wwwroot\assetsl\scss\_slider.scss" />
+    <None Include="wwwroot\assetsl\scss\_testimonial.scss" />
+    <None Include="wwwroot\assetsl\scss\_variables.scss" />
+    <None Include="wwwroot\assetsl\scss\_wishlist.scss" />
   </ItemGroup>
 
 </Project>
