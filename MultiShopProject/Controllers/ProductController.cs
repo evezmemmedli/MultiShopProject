@@ -56,5 +56,11 @@ namespace MultiShopProject.Controllers
             return View(products);
 
         }
+
+        public IActionResult AddBasket()
+        {
+            HttpContext.Response.Cookies.Append("Basket", "Test");
+            return Json(HttpContext.Request.Cookies["Basket"]==null);
+        }
     }
 }

@@ -56,16 +56,15 @@
                           <td>
                               @product.Category.Name
                         </td>
-                              
-
-                        
-
                         <td  class="d-flex" style="height:200px; align-items:center">
                                 <div>
                                     <a asp-area="MultiAdmin" asp-controller="product" asp-action="Update" asp-route-id="@product.Id" class="btn btn-warning"><i class="mdi mdi-border-color"></i></a>
                                 </div>
                                 <div>
                                     <a class="btn btn-danger" asp-controller="product" asp-action="Delete" asp-route-id="@product.Id"><i class="mdi mdi-delete"></i></a>
+                                </div>
+                                 <div>
+                                    <a class="btn btn-info" asp-controller="product" asp-action="Detail" asp-route-id="@product.Id"><i class="mdi mdi-delete"></i></a>
                                 </div>
                         </td>
                     </tr>

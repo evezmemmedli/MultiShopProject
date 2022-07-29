@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using MultiShopProject.DAL;
 using MultiShopProject.Models;
 using MultiShopProject.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,9 +26,9 @@ namespace MultiShopProject.Areas.MultiAdmin.Controllers
         public IActionResult Index()
         {
             List<Product> product = _context.Products
-                .Include(p=>p.Category)
-                .Include(p=>p.ProductImages)
-                .Include(p=>p.ProductInformation)
+                .Include(p => p.Category)
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductInformation)
                 .ToList();
             return View(product);
         }
@@ -40,7 +41,7 @@ namespace MultiShopProject.Areas.MultiAdmin.Controllers
         }
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(Product productForCreate)
         {
             if (!ModelState.IsValid)
             {
@@ -48,26 +49,26 @@ namespace MultiShopProject.Areas.MultiAdmin.Controllers
                 ViewBag.ProductInformations = _context.ProductInformations.ToList();
                 return View();
             }
-            if (product.MainPhoto == null ||  product.Photos == null)
+            if (productForCreate.MainPhoto == null || productForCreate.Photos == null)
             {
                 ViewBag.Categories = _context.Categories.ToList();
                 ViewBag.ProductInformations = _context.ProductInformations.ToList();
                 ModelState.AddModelError(string.Empty, "You must choose 1 main photo and 1 hover photo and 1 another photo ");
                 return View();
             }
-            if (!product.MainPhoto.ImageIsOkay(2))
+            if (!productForCreate.MainPhoto.ImageIsOkay(2))
             {
                 ViewBag.Categories = _context.Categories.ToList();
                 ViewBag.ProductInformations = _context.ProductInformations.ToList();
                 ModelState.AddModelError(string.Empty, "Please choose valid image file");
                 return View();
             }
-           
-           
-            product.ProductImages = new List<ProductImage>();
+
+
+            productForCreate.ProductImages = new List<ProductImage>();
             TempData["FileName"] = "";
             List<IFormFile> removeable = new List<IFormFile>();
-            foreach (var photo in product.Photos)
+            foreach (var photo in productForCreate.Photos)
             {
                 if (!photo.ImageIsOkay(2))
                 {
@@ -78,26 +79,93 @@ namespace MultiShopProject.Areas.MultiAdmin.Controllers
                 ProductImage productImage = new ProductImage
                 {
                     IsMain = false,
-                    Product = product,
+                    Product = productForCreate,
                     Name = await photo.FileCreate(_env.WebRootPath, "assets/img")
                 };
-                 _context.ProductImages.Add(productImage);
+                _context.ProductImages.Add(productImage);
             }
-            product.Photos.RemoveAll(p => removeable.Any(r => r.FileName == p.FileName));
+            productForCreate.Photos.RemoveAll(p => removeable.Any(r => r.FileName == p.FileName));
             ProductImage mainProductImage = new ProductImage
             {
                 IsMain = true,
-                Product = product,
-                Name = await product.MainPhoto.FileCreate(_env.WebRootPath, "assets/img")
+                Product = productForCreate,
+                Name = await productForCreate.MainPhoto.FileCreate(_env.WebRootPath, "assets/img")
             };
             _context.ProductImages.Add(mainProductImage);
 
 
-            _context.Products.Add(product);
-             _context.SaveChanges();
+            _context.Products.Add(productForCreate);
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
+        }
 
-            
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id is null || id == 0) return NotFound();
+
+            ViewBag.ProductionInformations = _context.ProductInformations.ToList();
+            ViewBag.Categories = _context.Categories.ToList();
+
+            Product product = await _context.Products
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductInformation)
+                .SingleOrDefaultAsync(p => p.Id == id);
+
+            if (product == null) return NotFound();
+
+            return View(product);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Update(int id, Product productForUpdate)
+        {
+            if (id == 0) return NotFound();
+
+            Product existed = await _context.Products.Include(p => p.ProductImages)
+                .Include(p => p.ProductInformation).FirstOrDefaultAsync(p => p.Id == id);
+            if (existed == null) return NotFound();
+
+            existed.ProductInformation.Name = productForUpdate.ProductInformation.Name;
+            existed.Desc = productForUpdate.Desc;
+            existed.Price = productForUpdate.Price;
+            existed.CategoryId = productForUpdate.CategoryId;
+
+            if (productForUpdate.MainPhoto != null)
+            {
+                if (!productForUpdate.MainPhoto.ImageIsOkay(2))
+                {
+                    ModelState.AddModelError("","test");
+                    return View();
+                }
+                FileValidator.FileDelete("", _env.WebRootPath, existed.ProductImages.FirstOrDefault(x=>x.IsMain==true).Name);
+
+                ProductImage removMain = existed.ProductImages.FirstOrDefault(x => x.IsMain == true);
+                _context.ProductImages.Remove(removMain);
+                ProductImage productImage = new ProductImage
+                {
+                    IsMain=true,
+                    ProductId=existed.Id,
+                    Name=await FileValidator.FileCreate(productForUpdate.MainPhoto,_env.WebRootPath,"assets/img")
+                };
+                existed.ProductImages.Add(productImage);
+                
+
+            }
+
+
+
+            _context.SaveChanges();
+
+            //_context.Update(existed);
+            //int updated = _context.SaveChanges();
+
+            //if (updated == 0)
+            //{
+            //    throw new Exception("Update is failed");
+            //}
+
+            return Ok();
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -107,8 +175,8 @@ namespace MultiShopProject.Areas.MultiAdmin.Controllers
             if (product is null) return NotFound();
             if (product.MainPhoto != null)
             {
-                FileValidator.FileDelete(_env.WebRootPath, "assets/img",product.ProductImages.FirstOrDefault(p=>p.IsMain == true).Name);
-               
+                FileValidator.FileDelete(_env.WebRootPath, "assets/img", product.ProductImages.FirstOrDefault(p => p.IsMain == true).Name);
+
 
             }
             if (product.Photos != null)
@@ -119,6 +187,21 @@ namespace MultiShopProject.Areas.MultiAdmin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
+        }
+
+        public IActionResult Detail(int? id)
+        {
+            if (id is null || id == 0) return NotFound();
+
+
+            Product product =  _context.Products
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductInformation)
+                .SingleOrDefault(p => p.Id == id);
+
+            if (product == null) return NotFound();
+
+            return View(product);
         }
     }
 }
