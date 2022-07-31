@@ -51,6 +51,7 @@ namespace MultiShopProject
                 opt.User.AllowedUserNameCharacters = "qwertyuiopasdfghjkzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890_";
             }).AddDefaultTokenProviders().AddEntityFrameworkStores<AppDbContext>(); 
             services.AddScoped<LayoutService>();
+            services.AddHttpContextAccessor();
 
         }
 
